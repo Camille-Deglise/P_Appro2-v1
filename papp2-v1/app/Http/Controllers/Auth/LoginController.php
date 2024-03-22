@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,20 +12,21 @@ class LoginController extends Controller
     {
         return view("login.login");
     }
+    public function logout()
+    {
+        Auth::logout();
+        return to_route('login')->with('success','Vous êtes déconnecté');
+    }
 
-    public function connected(LoginRequest $request)
+    public function doLogin(LoginRequest $request)
     {
         $credentials = $request->validated();
-
-        if(Auth::attempt($credentials)){
-            $request->session()->regenerate();
-            return redirect()->intended(route('site.home'));
+        if(Auth::attempt($credentials)) {
+            return view('site.home');
         }
-        return to_route('login.login')->withErrors([
-            'email' => 'Email invalide',
-            //'password' => 'Mot de passe invalide' , 'password' dans le OnlyInput à vérifier
-
+        return to_route('login')->withErrors([
+            'email'=> 'Identifiants incorrects',
         ])->onlyInput('email');
-
+        
     }
 }

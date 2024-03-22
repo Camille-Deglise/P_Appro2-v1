@@ -2,7 +2,8 @@
 @section('title', 'Connexion')
 @section('page-title', 'Connexion')
 @section('content')
-    <form class="w-full max-w-sm mx-auto" action="#" method="POST">
+    <form class="w-full max-w-sm mx-auto" action="{{route('login')}}" method="POST">
+        @csrf
         <div class="mb-6 flex items-center">
             <label class="block text-gray-500 font-bold mr-4" for="email" style="min-width: 100px;">
                 Email
@@ -20,7 +21,7 @@
         <div class="md:flex md:items-center">
         <div class="md:w-1/3"></div>
             <div class="md:w-2/3">
-                <button class="shadow bg-gray-300 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-gray-800 font-bold py-2 px-4 rounded" type="button">
+                <button class="shadow bg-gray-300 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-gray-800 font-bold py-2 px-4 rounded" type="submit">
                 Se connecter
                 </button>
             </div>

@@ -26,6 +26,18 @@
                 </div>
             </div>
         </div>
+        <div class="flex items-center">
+            <div class="flex-shrink-0 mr-6">
+                <span class="text-gray-300 text-lg font-semibold">
+                    @auth
+                        {{Auth::user()->name}}
+                        <form class="nav-item" action="{{route('logout')}}" method="POST">
+                            @method('delete')
+                            @csrf
+                            <button class="nav-link">Se déconnecter</button>
+                    @endauth
+                </span>
+            </div>
       </nav>
   </div>
       <div class="text-center py-4">
@@ -33,6 +45,11 @@
       </div>
     <div class="content container mx-auto px-4 py-8">
      @yield('content')
+     @if (session('success'))
+        <div class="alert alert-success text-gray-800 text-lg font-semibold">
+            {{session('success')}}
+        </div>
+        @endif
     </div>
 </body>
 

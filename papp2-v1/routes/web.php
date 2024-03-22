@@ -1,5 +1,5 @@
 <?php
-
+//use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -23,10 +23,12 @@ Route::get('/', function () {
 
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm']) ->name('register');
+Route::post('/register', [RegisterController::class,'storeDB']);
+//Auth::routes(['verify' => true]);
     
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-
-
+Route::post('/login', [LoginController::class,'doLogin']);
+Route::delete('/logout', [LoginController::class,'logout'])->name('logout');
 /*|--------------------------------------------------------------------------|*/
 
 Route::get('/home', function () {
