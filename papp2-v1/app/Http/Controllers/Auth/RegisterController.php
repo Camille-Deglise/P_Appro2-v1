@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-//use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
@@ -17,8 +17,10 @@ class RegisterController extends Controller
 
     public function storeDB(RegisterRequest $request)
     {
-        User::create(
-            $request -> validated());
+        $user = User::create($request -> validated());
+
+            event(new Registered($user));
+            
             return redirect()->route("login")->with("success",
             "Votre inscription s'est bien effectuée. Vérifier votre lien par email pour pouvoir vous connecter");
 

@@ -50,6 +50,11 @@
             {{session('success')}}
         </div>
         @endif
+        @if(session('message'))
+        <div class="alert alert-success text-gray-800 text-lg font-semibold">
+            {{session('message')}}
+        </div>
+        @endif
     </div>
 </body>
 

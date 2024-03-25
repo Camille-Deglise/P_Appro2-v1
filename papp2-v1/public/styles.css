@@ -12,8 +12,8 @@ html, body {
     flex: 1;
 
 }
-input::placeholder,
-textarea::placeholder {
-    font-size: 11px; /* Réglez la taille de la police du placeholder selon vos besoins */
+input::value,
+textarea::value {
+    font-size: 9px; /* Réglez la taille de la police du value selon vos besoins */
 }
 
