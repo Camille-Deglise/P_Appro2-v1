@@ -21,14 +21,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 /*|--------------------------------------------------------------------------|*/
+//middelware utilisés dans ces routes : 
+//signed pour garantir que l'URL est signée avec des jeton de sécurité et protégé des attaques de falsification 
+//désactive le csrf en soi. 
+//Middelware : throttle : empêche d'avoir + de 6 requêtes à la minute. 
+//possible de ne pas mettre ces middelware dans un environnement de test. 
 
+//Route qui va envoyer l'email de vérification
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
  
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
+//Route qui va vérifié si l'email a été validé. 
 Route::get('/email/verify/{id}/{hash}', 'App\Http\Controllers\Auth\VerificationController@verify')
+
     ->middleware(['signed', 'throttle:6,1'])
     ->name('verification.verify');
 
